@@ -1,0 +1,537 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRANG CHỦ SỰ KIỆN HỌA NGUYỆT - FFVN</title>
+  <link rel="icon" type="image/png" href="6da42b2c-8b1c-4ce5-9095-42e382173c71.png" />
+  <style>
+    @font-face {
+      font-family: 'GFF Latin';
+      src: url('Font GFF Latin - Việt Hoá/GFF-Latin-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'GFF Latin';
+      src: url('Font GFF Latin - Việt Hoá/GFF-Latin-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'GFF Latin';
+      src: url('Font GFF Latin - Việt Hoá/GFF-Latin-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'GFF Latin';
+      src: url('Font GFF Latin - Việt Hoá/GFF-Latin-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'GFF Latin';
+      src: url('Font GFF Latin - Việt Hoá/GFF-Latin-CdMedium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'GFF Latin', sans-serif;
+      background-image: url('backgroud-event_HOA_NGUYET-FFVN.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* Fullscreen mode */
+    :fullscreen body,
+    :-webkit-full-screen body,
+    :-moz-full-screen body {
+      background-attachment: scroll;
+    }
+
+    /* ── Text góc trái trên ── */
+
+    /* ── Wrapper ảnh phải + icons ── */
+    .right-wrapper {
+      position: fixed;
+      top: 50%;
+      right: 2.5vw;
+      transform: translateY(-50%);
+      width: auto;
+      z-index: 5;
+    }
+
+    .right-wrapper img.main-img {
+      width: auto;
+      height: 85vh;
+      display: block;
+      object-fit: contain;
+      object-position: right center;
+    }
+
+    /* ── Icon chung ── */
+    .pkg-icon {
+      position: absolute;
+      left: 50%;
+      width: clamp(85px, 11vh, 165px);
+      height: auto;
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .pkg-icon:hover {
+      filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 220, 100, 0.9));
+    }
+
+    .pkg-icon:active {
+      filter: brightness(1.5) drop-shadow(0 0 12px rgba(255, 180, 0, 1));
+    }
+
+    /* Vị trí từng icon theo % chiều cao ảnh (85vh) */
+    #icon05 { top: 20vh; transform: translateX(-120%); }
+    #icon04 { top: 32vh; transform: translateX(-120%); }
+    #icon03 { top: 44vh; transform: translateX(-120%); }
+    #icon02 { top: 56vh; transform: translateX(-120%); }
+    #icon01 { top: 68vh; transform: translateX(-120%); }
+
+    #icon05:hover { transform: translateX(-120%) scale(1.15); }
+    #icon04:hover { transform: translateX(-120%) scale(1.15); }
+    #icon03:hover { transform: translateX(-120%) scale(1.15); }
+    #icon02:hover { transform: translateX(-120%) scale(1.15); }
+    #icon01:hover { transform: translateX(-120%) scale(1.15); }
+
+    #icon05:active { transform: translateX(-120%) scale(0.95); }
+    #icon04:active { transform: translateX(-120%) scale(0.95); }
+    #icon03:active { transform: translateX(-120%) scale(0.95); }
+    #icon02:active { transform: translateX(-120%) scale(0.95); }
+    #icon01:active { transform: translateX(-120%) scale(0.95); }
+
+    /* ── Label chung ── */
+    .pkg-label {
+      position: absolute;
+      left: 50%;
+      background: rgba(20, 10, 40, 0.88);
+      color: #f5d97e;
+      font-family: 'GFF Latin', sans-serif;
+      font-size: clamp(13px, 1.5vh, 20px);
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 210, 80, 0.6);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 20;
+      transform: translateX(calc(-100% - clamp(85px, 11vh, 165px) - 16px)) translateY(50%);
+    }
+
+    .pkg-label.visible { opacity: 1; }
+
+    /* Căn label theo icon tương ứng */
+    /* ── Button nhiệm vụ hàng ngày ── */
+    .btn-daily {
+      position: fixed;
+      bottom: 2vh;
+      left: 2vw;
+      width: clamp(180px, 20vw, 420px);
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      display: block;
+    }
+
+    .btn-daily:hover {
+      transform: scale(1.08);
+      filter: brightness(1.25) drop-shadow(0 0 10px rgba(255, 220, 100, 0.85));
+    }
+
+    .btn-daily:active {
+      transform: scale(0.95);
+      filter: brightness(1.5) drop-shadow(0 0 14px rgba(255, 180, 0, 1));
+    }
+
+    /* ── Panel menu nhiệm vụ ── */
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      right: -55vw;
+      width: 50vw;
+      height: 100vh;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .menu-panel.open {
+      right: 0;
+    }
+
+    .menu-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    .menu-note {
+      text-align: center;
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 500;
+      font-size: clamp(15px, 2vh, 24px);
+      color: #f0dfa0;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+      line-height: 1.5;
+      pointer-events: none;
+    }
+
+    .menu-store-btns {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .menu-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 88%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-store-btns a {
+      display: block;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .menu-store-btns a:hover {
+      transform: scale(1.08);
+      filter: brightness(1.2) drop-shadow(0 0 6px rgba(255,220,100,0.7));
+    }
+
+    .menu-store-btns a:active {
+      transform: scale(0.95);
+    }
+
+    .menu-store-btns img {
+      height: clamp(36px, 5vh, 60px);
+      width: auto;
+      display: block;
+    }
+
+    /* ── Đồng hồ đếm ngược ── */
+    .countdown-wrapper {
+      position: fixed;
+      top: 1vh;
+      left: 1.5vw;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .text-event-img {
+      width: clamp(220px, 28vw, 520px);
+    }
+
+    .text-event-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .countdown-label {
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 500;
+      font-size: clamp(9px, 0.9vw, 13px);
+      color: #f5d97e;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .countdown-timer {
+      display: flex;
+      gap: clamp(6px, 0.8vw, 14px);
+      align-items: flex-end;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown-unit .num {
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 800;
+      font-size: clamp(16px, 2vw, 32px);
+      color: #fff8e7;
+      text-shadow: 0 0 12px rgba(255, 200, 60, 0.8), 0 2px 6px rgba(0,0,0,0.9);
+      line-height: 1;
+      min-width: 2ch;
+      text-align: center;
+    }
+
+    .countdown-unit .lbl {
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 400;
+      font-size: clamp(7px, 0.7vw, 10px);
+      color: #f5d97e;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      margin-top: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    .countdown-sep {
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 800;
+      font-size: clamp(14px, 1.8vw, 28px);
+      color: #f5d97e;
+      text-shadow: 0 0 8px rgba(255,200,60,0.7);
+      line-height: 1;
+      padding-bottom: 14px;
+    }
+
+    .countdown-ended {
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 700;
+      font-size: clamp(14px, 1.5vw, 22px);
+      color: #ff6b6b;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+    .rotate-notice {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10, 5, 25, 0.96);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .rotate-notice .rotate-icon {
+      width: 80px;
+      height: 80px;
+      animation: rotateAnim 2s ease-in-out infinite;
+    }
+
+    @keyframes rotateAnim {
+      0%   { transform: rotate(0deg); }
+      40%  { transform: rotate(90deg); }
+      60%  { transform: rotate(90deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .rotate-notice p {
+      font-family: 'GFF Latin', sans-serif;
+      font-weight: 500;
+      font-size: clamp(16px, 4.5vw, 24px);
+      color: #f5d97e;
+      line-height: 1.6;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+    }
+
+    @media screen and (max-width: 1024px) and (orientation: portrait) {
+      .rotate-notice {
+        display: flex;
+      }
+    }
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #label05 { top: 20vh; }
+    #label04 { top: 32vh; }
+    #label03 { top: 44vh; }
+    #label02 { top: 56vh; }
+    #label01 { top: 68vh; }
+
+  </style>
+</head>
+<body>
+
+  <div class="countdown-wrapper">
+    <div class="text-event-img">
+      <img src="text-event-HOA_NGUYEN_-FFVN.png" alt="Text Event HOA NGUYEN FFVN" />
+    </div>
+    <div style="height:6px"></div>
+    <div class="countdown-label">Thời gian còn lại</div>
+    <div class="countdown-timer" id="countdown">
+      <div class="countdown-unit"><span class="num" id="cd-days">00</span><span class="lbl">Ngày</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="num" id="cd-hours">00</span><span class="lbl">Giờ</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="num" id="cd-mins">00</span><span class="lbl">Phút</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="num" id="cd-secs">00</span><span class="lbl">Giây</span></div>
+    </div>
+  </div>
+
+  <!-- Cảnh báo xoay ngang điện thoại -->
+  <div class="rotate-notice">
+    <svg class="rotate-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Điện thoại -->
+      <rect x="27" y="8" width="26" height="44" rx="4" stroke="#f5d97e" stroke-width="3" fill="none"/>
+      <circle cx="40" cy="47" r="2.5" fill="#f5d97e"/>
+      <!-- Mũi tên xoay -->
+      <path d="M16 52 C16 64 28 72 40 72 C52 72 64 64 64 52" stroke="#f5d97e" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <polyline points="60,46 64,52 70,49" stroke="#f5d97e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <p>Vui lòng xoay ngang điện thoại<br>để có trải nghiệm tốt nhất!</p>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="menu-panel" id="menuPanel">
+    <img src="menu-nhiemvu-hangngay-event-HOA_NGUYET-FFVN_vi.png" alt="Menu nhiệm vụ hàng ngày" />
+    <div class="menu-content">
+      <div class="menu-note">Để có trải nghiệm tốt nhất bạn cần truy cập vào game hoặc tải game từ<br>Google Play hoặc App Store</div>
+      <div class="menu-store-btns">
+        <a href="https://apps.apple.com/vn/app/free-fire-sinh-nh%E1%BA%ADt-9-tu%E1%BB%95i/id1300146617?l=vi" target="_blank" rel="noopener">
+          <img src="Download_on_the_App_Store_Badge.svg.webp" alt="Download on the App Store" />
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.dts.freefireth&hl=vi&gl=VN" target="_blank" rel="noopener">
+          <img src="google_play.b8a7e58.png" alt="Get it on Google Play" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <img class="btn-daily" id="btnDaily" src="nhiemvu_hangngay-event_HOA_NGUYET_FFVN-vi.png" alt="Nhiệm vụ hàng ngày" />
+
+  <div class="right-wrapper">    <img class="main-img" src="345911e7-1727-4fec-8693-962ecfe28c1a.png" alt="Icon Right" />
+
+    <img class="pkg-icon" id="icon05" src="BM26_SYS_icon_05.png" alt="Gói Mặc Ảnh Giai Nhân" />
+    <div class="pkg-label" id="label05">Gói Mặc Ảnh Giai Nhân</div>
+
+    <img class="pkg-icon" id="icon04" src="BM26_SYS_icon_04.png" alt="Gói giọng MÃI BÊN NHAU" />
+    <div class="pkg-label" id="label04">Gói giọng họa nam và họa nữ MÃI BÊN NHAU BẠN NHÉ</div>
+
+    <img class="pkg-icon" id="icon03" src="BM26_SYS_icon_03.png" alt="BOM KEO ANH ĐÀO CỔ TRẤN" />
+    <div class="pkg-label" id="label03">BOM KEO - ANH ĐÀO CỔ TRẤN</div>
+
+    <img class="pkg-icon" id="icon02" src="BM26_SYS_icon_02.png" alt="Khung HỌA NGUYỆT" />
+    <div class="pkg-label" id="label02">Khung HỌA NGUYỆT &amp; nhãn dán HỌA NGUYỆT (30 ngày)</div>
+
+    <img class="pkg-icon" id="icon01" src="BM26_SYS_icon_01.png" alt="Hành động chụp ảnh" />
+    <div class="pkg-label" id="label01">Hành động chụp ảnh HỌA NGUYỆT (30 ngày) &amp; Tiếng gọi Họa Nguyệt</div>
+  </div>
+
+  <script>
+    const items = [
+      { icon: 'icon05', label: 'label05' },
+      { icon: 'icon04', label: 'label04' },
+      { icon: 'icon03', label: 'label03' },
+      { icon: 'icon02', label: 'label02' },
+      { icon: 'icon01', label: 'label01' },
+    ];
+
+    items.forEach(({ icon, label }) => {
+      const iconEl = document.getElementById(icon);
+      const labelEl = document.getElementById(label);
+      iconEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isVisible = labelEl.classList.contains('visible');
+        // Ẩn tất cả label
+        items.forEach(i => document.getElementById(i.label).classList.remove('visible'));
+        // Toggle label hiện tại
+        if (!isVisible) labelEl.classList.add('visible');
+      });
+    });
+
+    // ── Đồng hồ đếm ngược 5 ngày ──
+    (function() {
+      // Thời điểm bắt đầu: 1/9/2026, kết thúc sau 5 ngày: 6/9/2026 cùng giờ phút giây
+      const startTime = new Date('2026-09-01T00:00:00');
+      const endTime = new Date('2026-09-06T23:59:59');
+
+      const pad = n => String(n).padStart(2, '0');
+
+      function tick() {
+        const now = new Date();
+        const diff = endTime - now;
+
+        if (diff <= 0) {
+          document.getElementById('countdown').innerHTML =
+            '<span class="countdown-ended">Sự kiện đã kết thúc!</span>';
+          return;
+        }
+
+        const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-days').textContent  = pad(days);
+        document.getElementById('cd-hours').textContent = pad(hours);
+        document.getElementById('cd-mins').textContent  = pad(mins);
+        document.getElementById('cd-secs').textContent  = pad(secs);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // ── Menu nhiệm vụ ──
+    const btnDaily = document.getElementById('btnDaily');
+    const menuPanel = document.getElementById('menuPanel');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    btnDaily.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuPanel.classList.toggle('open');
+      menuOverlay.classList.toggle('open');
+    });
+
+    menuOverlay.addEventListener('click', () => {
+      menuPanel.classList.remove('open');
+      menuOverlay.classList.remove('open');
+    });
+
+    // Ẩn tất cả label khi click ra ngoài
+    document.addEventListener('click', () => {
+      items.forEach(i => document.getElementById(i.label).classList.remove('visible'));
+    });
+  </script>
+
+</body>
+</html>
